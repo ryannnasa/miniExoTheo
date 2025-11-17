@@ -2,17 +2,22 @@
 ' Diagramme de classes généré depuis le code source du projet
 
 skinparam classAttributeIconSize 0
-
-abstract class Animal {
+class Creature {
   - energy : int = 100
   + name : String
   + species : String
-  + Animal(name:String, species:String)
+  + Creature(name:String, species:String)
   + move()
   + rest()
   + getEnergy() : int
   # changeEnergy(delta:int)
+  + toString()
+}
+
+abstract class Animal {
+  + Animal(name:String, species:String)
   {abstract} + makeSound()
+  + move()
 }
 
 interface Swimmer {
@@ -31,6 +36,7 @@ class Kappa {
   + Kappa(name:String, species:String)
   + makeSound()
   + swim()
+  + move()
 }
 
 class Ningyo {
@@ -38,27 +44,39 @@ class Ningyo {
   + makeSound()
   + swim()
   + hunt(prey:Animal)
+  + move()
 }
 
 class Tombo {
   + Tombo(name:String, species:String)
   + makeSound()
   + fly()
+  + move()
 }
 
 class Jorogumo {
   + Jorogumo(name:String, species:String)
   + makeSound()
   + bite(target:Animal)
+  + move()
 }
 
 class Katatsumuri {
   + Katatsumuri(name:String, species:String)
   + makeSound()
-  + move()  // override: très lent
+  + move()
+}
+
+class Utils {
+  + makeSwim(Swimmer)
+}
+
+class Main {
+  + main(args:String[])
 }
 
 ' Héritage
+Creature <|-- Animal
 Animal <|-- Kappa
 Animal <|-- Ningyo
 Animal <|-- Tombo
@@ -71,8 +89,10 @@ Swimmer <|.. Ningyo
 Flyer <|.. Tombo
 Predator <|.. Ningyo
 
-' Utilisations
+' Utilisations / dépendances
 Jorogumo ..> Animal : bite()
 Ningyo ..> Animal : hunt()
+Utils ..> Swimmer : makeSwim()
+Main ..> Animal : uses
 
 @enduml

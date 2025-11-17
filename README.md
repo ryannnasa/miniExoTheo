@@ -6,23 +6,21 @@ avec héritage, interfaces et polymorphisme.
 Fichiers présents:
 
 - `src/Animal.java`
-- `src/Kappa.java` (grenouille/kappa)
-- `src/Ningyo.java` (poisson/ningyo) — implémente `Swimmer` et `Predator`
-- `src/Tombo.java` (libellule)
-- `src/Jorogumo.java` (yōkai araignée / mosquito-like)
-- `src/Katatsumuri.java` (escargot)
+- `src/Kappa.java`
+- `src/Ningyo.java` — implémente `Swimmer` et `Predator`
+- `src/Tombo.java`
+- `src/Jorogumo.java`
+- `src/Katatsumuri.java`
 - `src/Swimmer.java`, `src/Flyer.java`, `src/Predator.java`
 - `src/Utils.java` (utilitaire `makeSwim`)
 - `src/Main.java`
 
-Compilation et exécution (Windows PowerShell):
+Diagramme
 
-```powershell
-# Compiler tous les fichiers java du dossier 'src' dans 'out'
-javac -d out src\*.java
-# Exécuter
-java -cp out Main
-```
+- Source PlantUML : `src/diagram.puml`
+- Rendu (PNG) :
+
+![Diagramme de classes](src/diagram.png)
 
 Exemple de sortie attendue (partielle) :
 
