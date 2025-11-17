@@ -1,0 +1,78 @@
+@startuml
+' Diagramme de classes généré depuis le code source du projet
+
+skinparam classAttributeIconSize 0
+
+abstract class Animal {
+  - energy : int = 100
+  + name : String
+  + species : String
+  + Animal(name:String, species:String)
+  + move()
+  + rest()
+  + getEnergy() : int
+  # changeEnergy(delta:int)
+  {abstract} + makeSound()
+}
+
+interface Swimmer {
+  + swim()
+}
+
+interface Flyer {
+  + fly()
+}
+
+interface Predator {
+  + hunt(prey : Animal)
+}
+
+class Kappa {
+  + Kappa(name:String, species:String)
+  + makeSound()
+  + swim()
+}
+
+class Ningyo {
+  + Ningyo(name:String, species:String)
+  + makeSound()
+  + swim()
+  + hunt(prey:Animal)
+}
+
+class Tombo {
+  + Tombo(name:String, species:String)
+  + makeSound()
+  + fly()
+}
+
+class Jorogumo {
+  + Jorogumo(name:String, species:String)
+  + makeSound()
+  + bite(target:Animal)
+}
+
+class Katatsumuri {
+  + Katatsumuri(name:String, species:String)
+  + makeSound()
+  + move()  // override: très lent
+}
+
+' Héritage
+Animal <|-- Kappa
+Animal <|-- Ningyo
+Animal <|-- Tombo
+Animal <|-- Jorogumo
+Animal <|-- Katatsumuri
+
+' Implémentations d'interfaces
+Swimmer <|.. Kappa
+Swimmer <|.. Ningyo
+Flyer <|.. Tombo
+Predator <|.. Ningyo
+
+' Utilisations
+Jorogumo ..> Animal : bite()
+Ningyo ..> Animal : hunt()
+
+@enduml
