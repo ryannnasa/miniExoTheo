@@ -201,6 +201,10 @@ Notes pratiques
 
 - Si vous voulez une image du diagramme Mermaid (PNG/SVG) dans le repo, je peux la générer et l'ajouter.
 
+Diagramme (image)
+
+![Diagramme de classes](src/diagram.svg)
+
 - Pour les réglages de coûts énergétiques, je peux extraire des constantes par classe (`private static final int SWIM_COST = X`) pour rendre les valeurs faciles à modifier.
 
 Diagramme de classes (Mermaid)

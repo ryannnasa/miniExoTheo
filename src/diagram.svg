@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <style>
+    .box { fill:#fff; stroke:#333; stroke-width:1.5 }
+    .title { font: bold 14px Arial; fill:#111 }
+    .text { font: 12px Arial; fill:#111 }
+    .strokearrow { stroke:#333; stroke-width:1.2; fill:none; marker-end:url(#arrow); }
+    .note { font: 11px Arial; fill:#333 }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333" />
+    </marker>
+  </defs>
+
+  <!-- Creature -->
+  <rect class="box" x="40" y="30" width="260" height="120" rx="6" ry="6"/>
+  <text class="title" x="60" y="54">Creature</text>
+  <text class="text" x="60" y="78">- energy: int = 100</text>
+  <text class="text" x="60" y="96">+ move(), + rest(), + getEnergy()</text>
+  <text class="text" x="60" y="114"># changeEnergy(delta)</text>
+
+  <!-- Animal -->
+  <rect class="box" x="380" y="30" width="220" height="72" rx="6" ry="6"/>
+  <text class="title" x="400" y="54">Animal (abstract)</text>
+  <text class="text" x="400" y="76">+ makeSound()</text>
+
+  <!-- Interfaces -->
+  <rect class="box" x="760" y="30" width="140" height="60" rx="6" ry="6"/>
+  <text class="title" x="774" y="54">Swimmer</text>
+  <text class="text" x="774" y="74">+ swim()</text>
+
+  <rect class="box" x="760" y="110" width="140" height="60" rx="6" ry="6"/>
+  <text class="title" x="774" y="134">Flyer</text>
+  <text class="text" x="774" y="154">+ fly()</text>
+
+  <rect class="box" x="760" y="190" width="160" height="60" rx="6" ry="6"/>
+  <text class="title" x="774" y="214">Predator</text>
+  <text class="text" x="774" y="234">+ hunt(prey)</text>
+
+  <!-- Subclasses -->
+  <rect class="box" x="120" y="200" width="200" height="72" rx="6" ry="6"/>
+  <text class="title" x="140" y="226">Kappa</text>
+  <text class="text" x="140" y="246">+ swim(), move()</text>
+
+  <rect class="box" x="360" y="200" width="200" height="92" rx="6" ry="6"/>
+  <text class="title" x="380" y="226">Ningyo</text>
+  <text class="text" x="380" y="246">+ swim(), hunt(prey), move()</text>
+
+  <rect class="box" x="600" y="200" width="200" height="72" rx="6" ry="6"/>
+  <text class="title" x="620" y="226">Tombo</text>
+  <text class="text" x="620" y="246">+ fly(), move()</text>
+
+  <rect class="box" x="240" y="320" width="200" height="72" rx="6" ry="6"/>
+  <text class="title" x="260" y="346">Jorogumo</text>
+  <text class="text" x="260" y="366">+ bite(target), move()</text>
+
+  <rect class="box" x="500" y="320" width="200" height="72" rx="6" ry="6"/>
+  <text class="title" x="520" y="346">Katatsumuri</text>
+  <text class="text" x="520" y="366">+ move() (very slow)</text>
+
+  <!-- Utils -->
+  <rect class="box" x="920" y="320" width="200" height="56" rx="6" ry="6"/>
+  <text class="title" x="940" y="344">Utils</text>
+  <text class="text" x="940" y="362">+ makeSwim(Swimmer)</text>
+
+  <!-- Inheritance arrows -->
+  <path class="strokearrow" d="M300,90 L380,90" />
+  <path class="strokearrow" d="M490,102 L490,200" />
+
+  <path class="strokearrow" d="M480,102 L200,200" />
+  <path class="strokearrow" d="M480,102 L420,200" />
+  <path class="strokearrow" d="M480,102 L640,200" />
+  <path class="strokearrow" d="M480,102 L340,320" />
+  <path class="strokearrow" d="M480,102 L560,320" />
+
+  <!-- Interface realizations -->
+  <path class="strokearrow" d="M820,90 L220,220" stroke-dasharray="4 3" />
+  <path class="strokearrow" d="M820,90 L420,220" stroke-dasharray="4 3" />
+  <path class="strokearrow" d="M820,170 L700,220" stroke-dasharray="4 3" />
+  <path class="strokearrow" d="M820,250 L420,220" stroke-dasharray="4 3" />
+
+  <!-- Usages -->
+  <path class="strokearrow" d="M980,340 L720,230" />
+
+  <!-- Labels -->
+  <text class="note" x="40" y="170">Top: core classes (Creature, Animal) — Middle: concrete animals — Right: interfaces & utils</text>
+
+</svg>
