@@ -10,7 +10,7 @@ public class Katatsumuri extends Animal {
 
     @Override
     public void move() {
-        System.out.println(name + " se déplace très lentement...");
+        System.out.println(name + " se déplace très lentement en laissant une trace de mucus.");
         changeEnergy(-1);
     }
 }

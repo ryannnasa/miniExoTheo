@@ -5,12 +5,19 @@ public class Kappa extends Animal implements Swimmer {
 
     @Override
     public void makeSound() {
-        System.out.println(name + " fait : croâ ! (ribbit)");
+        System.out.println(name + " fait : kwa kwa ! (kappa croak)");
     }
 
     @Override
     public void swim() {
         System.out.println(name + " nage et éclabousse.");
-        changeEnergy(-5);
+        changeEnergy(-6);
+    }
+
+    @Override
+    public void move() {
+        // Le déplacement d'un kappa s'exprime par la nage
+        System.out.println(name + " se déplace en nageant (kappa).");
+        swim();
     }
 }

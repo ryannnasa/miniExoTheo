@@ -5,12 +5,19 @@ public class Tombo extends Animal implements Flyer {
 
     @Override
     public void makeSound() {
-        System.out.println(name + " fait : ziziz... (buzz)");
+        System.out.println(name + " fait : zzzzz (libellule)");
     }
 
     @Override
     public void fly() {
-        System.out.println(name + " s'envole en bourdonnant.");
+        System.out.println(name + " s'envole et virevolte.");
         changeEnergy(-5);
+    }
+
+    @Override
+    public void move() {
+        // Pour la libellule, se déplacer signifie voler
+        System.out.println(name + " se déplace en volant (tombo).");
+        fly();
     }
 }
