@@ -17,14 +17,12 @@ public class Ningyo extends Animal implements Swimmer, Predator {
     @Override
     public void hunt(Animal prey) {
         System.out.println(name + " attire puis attaque " + prey.name + " !");
-        // Le ningyo inflige des dégâts importants mais récupère un peu d'énergie
         prey.changeEnergy(-30);
         changeEnergy(12);
     }
 
     @Override
     public void move() {
-        // Le déplacement d'un ningyo correspond à la nage
         System.out.println(name + " se déplace en nageant (ningyo).");
         swim();
     }

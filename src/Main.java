@@ -12,8 +12,6 @@ public class Main {
             a.makeSound();
         }
 
-        // Démonstration : faire nager toutes les créatures nageuses via
-        // Utils.makeSwim()
         for (Animal a : pond) {
             if (a instanceof Swimmer) {
                 System.out.println(a.name + " va nager via Utils.makeSwim()");
@@ -40,5 +38,35 @@ public class Main {
         n.hunt(target);
         System.out.println(target.name + " énergie après chasse: " + target.getEnergy());
         System.out.println(n.name + " énergie après chasse: " + n.getEnergy());
+        System.out.println();
+        System.out.println("--- Démonstration météo / comportements adaptatifs ---");
+
+        Weather weather = new Weather("sunny", 20);
+
+        AdaptiveCreature ac1 = new AdaptiveCreature("Aiko", "adaptive-kappa");
+        AdaptiveCreature ac2 = new AdaptiveCreature("Umi", "adaptive-ningyo");
+        AdaptiveCreature ac3 = new AdaptiveCreature("Yoru", "adaptive-tombo");
+
+        ac2.setBehaviorFor("night", new ActiveBehavior());
+        ac3.setBehaviorFor("rainy", new HidingBehavior());
+
+        weather.addObserver(ac1);
+        weather.addObserver(ac2);
+        weather.addObserver(ac3);
+
+        System.out.println("\nMétéo: sunny, 20°C");
+        weather.setWeather("sunny", 20);
+
+        System.out.println("\nMétéo: rainy, 15°C");
+        weather.setWeather("rainy", 15);
+
+        System.out.println("\nMétéo: stormy, 12°C");
+        weather.setWeather("stormy", 12);
+
+        System.out.println("\nMétéo: night, 10°C");
+        weather.setWeather("night", 10);
+
+        System.out.println("\nMétéo: sunny, -5°C (très froid)");
+        weather.setWeather("sunny", -5);
     }
 }

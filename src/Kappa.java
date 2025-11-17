@@ -16,7 +16,6 @@ public class Kappa extends Animal implements Swimmer {
 
     @Override
     public void move() {
-        // Le déplacement d'un kappa s'exprime par la nage
         System.out.println(name + " se déplace en nageant (kappa).");
         swim();
     }

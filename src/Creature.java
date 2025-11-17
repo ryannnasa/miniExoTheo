@@ -20,7 +20,6 @@ public class Creature {
         return energy;
     }
 
-    // Méthode utilitaire protégée pour ajuster l'énergie depuis les sous-classes
     protected void changeEnergy(int delta) {
         energy = Math.max(0, Math.min(100, energy + delta));
     }

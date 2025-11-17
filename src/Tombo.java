@@ -16,7 +16,6 @@ public class Tombo extends Animal implements Flyer {
 
     @Override
     public void move() {
-        // Pour la libellule, se déplacer signifie voler
         System.out.println(name + " se déplace en volant (tombo).");
         fly();
     }

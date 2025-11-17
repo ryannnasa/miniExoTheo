@@ -32,39 +32,38 @@ interface Predator {
   + hunt(prey : Animal)
 }
 
+' Strategy pattern
+interface Behavior {
+  + execute(creature:AdaptiveCreature, weather:Weather)
+}
+
+class ActiveBehavior {
+  + execute(creature:AdaptiveCreature, weather:Weather)
+}
+
+class SleepingBehavior {
+  + execute(creature:AdaptiveCreature, weather:Weather)
+}
+
+class HidingBehavior {
+  + execute(creature:AdaptiveCreature, weather:Weather)
+}
+
 class Kappa {
-  + Kappa(name:String, species:String)
-  + makeSound()
-  + swim()
-  + move()
 }
 
 class Ningyo {
-  + Ningyo(name:String, species:String)
-  + makeSound()
-  + swim()
   + hunt(prey:Animal)
-  + move()
 }
 
 class Tombo {
-  + Tombo(name:String, species:String)
-  + makeSound()
-  + fly()
-  + move()
 }
 
 class Jorogumo {
-  + Jorogumo(name:String, species:String)
-  + makeSound()
   + bite(target:Animal)
-  + move()
 }
 
 class Katatsumuri {
-  + Katatsumuri(name:String, species:String)
-  + makeSound()
-  + move()
 }
 
 class Utils {
@@ -75,6 +74,27 @@ class Main {
   + main(args:String[])
 }
 
+' Observer pattern: Weather notifies WeatherObserver
+class Weather {
+  + condition : String
+  + temperature : int
+  + Weather(condition:String, temperature:int)
+  + setWeather(condition:String, temperature:int)
+  + addObserver(o:WeatherObserver)
+  + removeObserver(o:WeatherObserver)
+}
+
+interface WeatherObserver {
+  + onWeatherChange(weather:Weather)
+}
+
+' Adaptive creature that combines both patterns
+class AdaptiveCreature {
+  + AdaptiveCreature(name:String, species:String)
+  + setBehaviorFor(condition:String, b:Behavior)
+  + onWeatherChange(weather:Weather)
+}
+
 ' Héritage
 Creature <|-- Animal
 Animal <|-- Kappa
@@ -82,12 +102,25 @@ Animal <|-- Ningyo
 Animal <|-- Tombo
 Animal <|-- Jorogumo
 Animal <|-- Katatsumuri
+Animal <|-- AdaptiveCreature
 
 ' Implémentations d'interfaces
 Swimmer <|.. Kappa
 Swimmer <|.. Ningyo
 Flyer <|.. Tombo
 Predator <|.. Ningyo
+
+' Strategy implementations
+Behavior <|.. ActiveBehavior
+Behavior <|.. SleepingBehavior
+Behavior <|.. HidingBehavior
+
+' Observer implementations / usages
+WeatherObserver <|.. AdaptiveCreature
+Weather ..> WeatherObserver : notifyObservers()
+
+' AdaptiveCreature uses Behavior (composition)
+AdaptiveCreature ..> Behavior : currentBehavior
 
 ' Utilisations / dépendances
 Jorogumo ..> Animal : bite()
@@ -96,3 +129,4 @@ Utils ..> Swimmer : makeSwim()
 Main ..> Animal : uses
 
 @enduml
+
