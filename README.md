@@ -71,284 +71,51 @@ Notes détaillées
 
   - `Ningyo` (poisson mythologique)
 
-    - Son: `"glou glou (ningyō)"`
-    - `swim()`: cost `-4` (nage gracieuse).
-    - `hunt(prey)`: inflige `-30` à la proie et récupère `+12`.
-    - `move()`: redirigé vers `swim()`.
-
-  - `Tombo` (libellule / `Tombo`)
-
-    - Son: `"zzzzz (libellule)"`
-    - `fly()`: cost `-5` (virevolte).
-    - `move()`: redirigé vers `fly()`.
-
-  - `Jorogumo` (yōkai araignée-like)
-
-    - Son: `"sss... (jorogumo)"`
-    - `bite(target)`: inflige `-6` à la cible.
-    - `move()`: décrit tissage/faufilage, cost `-7`.
-
-  - `Katatsumuri` (escargot)
-    - Son: `"... (silence d'escargot)"`
-    - `move()`: très lent, cost `-1`, message: "se déplace très lentement en laissant une trace de mucus".
-
-- Interfaces utiles
-  - `Swimmer` : `swim()` — implémenté par `Kappa`, `Ningyo`.
-  - `Flyer` : `fly()` — implémenté par `Tombo`.
-  - `Predator` : `hunt(prey)` — implémenté par `Ningyo`.
-  - `Utils.makeSwim(Swimmer)` : utilitaire pour appeler `swim()` sur n'importe quel nageur.
-
-Diagramme de classes (Mermaid)
-
-```mermaid
-classDiagram
-    class Creature {
-        - energy: int = 100
-        + name: String
-        + species: String
-        + Creature(name, species)
-        + move()
-        + rest()
-        + getEnergy(): int
-        # changeEnergy(delta)
-    }
-
-    class Animal {
-        <<abstract>>
-        + Animal(name, species)
-        + makeSound()
-    }
-
-    interface Swimmer {
-        + swim()
-    }
-
-    interface Flyer {
-        + fly()
-    }
-
-    interface Predator {
-        + hunt(prey: Animal)
-    }
-
-    class Kappa {
-        + Kappa(name, species)
-        + makeSound()
-        + swim()
-        + move()
-    }
-
-    class Ningyo {
-        + Ningyo(name, species)
-        + makeSound()
-        + swim()
-        + hunt(prey)
-        + move()
-    }
-
-    class Tombo {
-        + Tombo(name, species)
-        + makeSound()
-        + fly()
-        + move()
-    }
-
-    class Jorogumo {
-        + Jorogumo(name, species)
-        + makeSound()
-        + bite(target: Animal)
-        + move()
-    }
-
-    class Katatsumuri {
-        + Katatsumuri(name, species)
-        + makeSound()
-        + move()
-    }
-
-    class Utils {
-        + makeSwim(creature: Swimmer)
-    }
-
-    Creature <|-- Animal
-    Animal <|-- Kappa
-    Animal <|-- Ningyo
-    Animal <|-- Tombo
-    Animal <|-- Jorogumo
-    Animal <|-- Katatsumuri
-
-    Swimmer <|.. Kappa
-    Swimmer <|.. Ningyo
-    Flyer <|.. Tombo
-    Predator <|.. Ningyo
-
-    Utils ..> Swimmer : uses
-    Jorogumo ..> Animal : bite()
-    Ningyo ..> Animal : hunt()
-```
-
-Notes pratiques
-
-- Pour éviter les problèmes d'affichage d'accents dans PowerShell (mojibake), utilisez UTF-8:
-
-  ```powershell
-  chcp 65001
-  [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-  $OutputEncoding = [System.Text.Encoding]::UTF8
-  javac -encoding UTF-8 -d out src\*.java
-  java -Dfile.encoding=UTF-8 -cp out Main
-  ```
-
-- Si vous voulez une image du diagramme Mermaid (PNG/SVG) dans le repo, je peux la générer et l'ajouter.
-
-Diagramme (image)
-
-![Diagramme de classes](src/diagram.svg)
-
-- Pour les réglages de coûts énergétiques, je peux extraire des constantes par classe (`private static final int SWIM_COST = X`) pour rendre les valeurs faciles à modifier.
-
-Diagramme de classes (Mermaid)
-
-```mermaid
-classDiagram
-  class Creature {
-    - energy: int = 100
-    + name: String
-    + species: String
-    + Creature(name, species)
-    + move()
-    + rest()
-    + getEnergy(): int
-    # changeEnergy(delta)
-  }
-
-  class Animal {
-    <<abstract>>
-    + Animal(name, species)
-    + makeSound()
-  }
-
-  interface Swimmer {
-    + swim()
-  }
-
-  interface Flyer {
-    + fly()
-  }
-
-  interface Predator {
-    + hunt(prey: Animal)
-  }
-
-  class Kappa {
-    + Kappa(name, species)
-    + makeSound()
-    + swim()
-  }
-
-  class Ningyo {
-    + Ningyo(name, species)
-    + makeSound()
-    + swim()
-    + hunt(prey)
-  }
-
-  class Tombo {
-    + Tombo(name, species)
-    + makeSound()
-    + fly()
-  }
-
-  class Jorogumo {
-    + Jorogumo(name, species)
-    + makeSound()
-    + bite(target: Animal)
-  }
-
-  class Katatsumuri {
-    + Katatsumuri(name, species)
-    + makeSound()
-    + move()  // override très lent
-  }
-
-  class Utils {
-    + makeSwim(creature: Swimmer)
-  }
-
-  Creature <|-- Animal
-  Animal <|-- Kappa
-  Animal <|-- Ningyo
-  Animal <|-- Tombo
-  Animal <|-- Jorogumo
-  Animal <|-- Katatsumuri
-
-  Swimmer <|.. Kappa
-  Swimmer <|.. Ningyo
-  Flyer <|.. Tombo
-  Predator <|.. Ningyo
-
-  Utils ..> Swimmer : uses
-  Jorogumo ..> Animal : bite()
-  Ningyo ..> Animal : hunt()
-```
-
-Notes pratiques
-
-- Pour éviter les problèmes d'affichage d'accents dans PowerShell (mojibake), utilisez UTF-8:
-
-  ```powershell
-  chcp 65001
-  [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-  $OutputEncoding = [System.Text.Encoding]::UTF8
-  javac -encoding UTF-8 -d out src\*.java
-  java -Dfile.encoding=UTF-8 -cp out Main
-  ```
-
-- Le fichier contenant le diagramme est `src/diagram.puml` (si vous voulez utiliser PlantUML plutôt que Mermaid).
-
-- Si vous voulez que j'exporte le diagramme Mermaid en PNG/SVG (via un rendu local ou un service), dites-le-moi.
-
 # Java Pond Creatures (Créatures de la mythologie japonaise)
 
-Petit projet Java qui montre la classe `Creature` convertie depuis TypeScript/JS en Java.
+Brève présentation
 
-Fichiers créés:
+Petit projet Java démontrant l'héritage, les interfaces et le polymorphisme via des créatures inspirées de la mythologie japonaise.
 
-- `src/Animal.java`
-- `src/Frog.java`
-- `src/Fish.java`
-- `src/Dragonfly.java`
-- `src/Mosquito.java`
-- `src/Snail.java`
-- `src/Main.java`
+Fichiers principaux (dans `src/`)
 
-Compilation et exécution (Windows PowerShell):
+- `Animal.java`, `Creature.java`, `Main.java`
+- Espèces : `Kappa.java`, `Ningyo.java`, `Tombo.java`, `Jorogumo.java`, `Katatsumuri.java`
+- Interfaces : `Swimmer.java`, `Flyer.java`, `Predator.java`
+- Utilitaires : `Utils.java`
+- Diagramme : `diagram.puml` (source) et `src/diagram.svg` (rendu, si présent)
+
+Compilation et exécution (Windows PowerShell)
 
 ```powershell
-# Compiler tous les fichiers java du dossier 'src' dans 'out'
+# Option simple : compiler puis exécuter
 javac -d out src\*.java
-# Exécuter
 java -cp out Main
+
+# Si vous avez des problèmes d'encodage (accents) :
+chcp 65001
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+javac -encoding UTF-8 -d out src\*.java
+java -Dfile.encoding=UTF-8 -cp out Main
 ```
 
-Exemple de sortie attendue (partielle) :
+Comportement et notes rapides
 
-```
-René fait : croâ ! (ribbit)
-Mimi fait : blub blub
-Tsubasa fait : ziziz... (buzz)
-Suzu fait : bzzzz (mosquito)
-Koro fait : ... (silence d'escargot)
-René avant piqûre : 100
-Suzu pique René !
-René après piqûre : 95
-Koro énergie avant déplacement: 100
-Koro se déplace très lentement...
-Koro énergie après déplacement: 99
-```
+- Chaque créature possède une énergie (0–100). Les actions (`move`, `swim`, `fly`, `bite`, `hunt`, etc.) modifient l'énergie via une méthode de changement d'énergie.
+- `rest()` restaure de l'énergie (ex. +20, plafonné à 100).
+- Interfaces utiles : `Swimmer` (nage), `Flyer` (vol), `Predator` (chasse).
 
-Notes:
+Diagramme
 
-- `move()` réduit l'énergie de 10 (min 0).
-  -- `rest()` augmente l'énergie de 20 (max 100).
-  -- Les classes montrent héritage, méthodes spécifiques et polymorphisme.
+- Le fichier source du diagramme est `src/diagram.puml`. Un rendu SVG peut se trouver dans `src/diagram.svg`.
+- Si vous souhaitez que j'exporte ou régénère le diagramme en PNG/SVG, dites-moi quel format vous préférez.
+
+Contributions et améliorations possibles
+
+- Extraire les coûts d'énergie en constantes (`private static final`) pour faciliter les réglages.
+- Ajouter des tests unitaires ou un petit script d'exécution pour scénarios d'exemple.
+
+Besoin d'autre chose ?
+
+- Je peux : générer le rendu du diagramme, extraire les constantes de coûts, ou raccourcir encore davantage ce README selon vos préférences.
